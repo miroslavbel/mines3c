@@ -11,8 +11,9 @@
  *
  * \note Здесь не определены id для инструкций <code>LAST, RESTART</code>.
  *
- * \warning Id со значениями <code>34, 41-42, 55-56, 61-73, 75, 78-118</code>
- * отсутствуют.
+ * \warning Значения id расположены в диапазоне <code>[0-182]</code>. Id со
+ * значениями <code>34, 41-42, 55-56, 61-73, 75, 78-118, 121-122, 124-130,
+ * 150-155</code> (все диапазоны даны включительно) отсутствуют.
  */
 enum InstructionIds {
     InstructionId_EMPTY = 0,
@@ -85,6 +86,70 @@ enum InstructionIds {
     InstructionId_CCC_BOX = 74,
     InstructionId_CCC_OPOR = 76,
     InstructionId_CCC_GREENBLOCK = 77,
+
+    InstructionId_VAR_MORE = 119,
+    InstructionId_VAR_LESS = 120,
+    InstructionId_VAR_EQUAL = 123,
+
+    InstructionId_CELL_WW = 131,
+    InstructionId_CELL_AA = 132,
+    InstructionId_CELL_SS = 133,
+    InstructionId_CELL_DD = 134,
+    InstructionId_CELL_F = 135,
+    InstructionId_CELL_FF = 136,
+
+    InstructionId_GOSUBF = 137,
+    InstructionId_RETURNF = 138,
+
+    InstructionId_IF_NOT_GOTO = 139,
+    InstructionId_IF_GOTO = 140,
+
+    InstructionId_STD_DIGG = 141,
+    InstructionId_STD_BUILD = 142,
+    InstructionId_STD_HEAL = 143,
+    InstructionId_PROG_FLIP = 144,
+    InstructionId_STD_MINE = 145,
+
+    InstructionId_CC_GUN = 146,
+    InstructionId_FILL_GUN = 147,
+
+    InstructionId_CB_HP = 148,
+    InstructionId_CB_HP50 = 149,
+
+    InstructionId_CELL_RIGHT_HAND = 156,
+    InstructionId_CELL_LEFT_HAND = 157,
+
+    InstructionId_MODE_AUTODIGG_ON = 158,
+    InstructionId_MODE_AUTODIGG_OFF = 159,
+    InstructionId_MODE_AGR_ON = 160,
+    InstructionId_MODE_AGR_OFF = 161,
+
+    InstructionId_ACTION_B1 = 162,
+    InstructionId_ACTION_B3 = 163,
+    InstructionId_ACTION_B2 = 164,
+    InstructionId_ACTION_WB = 165,
+
+    InstructionId_ON_RESP = 166,
+
+    InstructionId_ACTION_GEOPACK = 167,
+    InstructionId_ACTION_ZM = 168,
+    InstructionId_ACTION_C190 = 169,
+    InstructionId_ACTION_POLY = 170,
+    InstructionId_ACTION_UP = 171,
+    InstructionId_ACTION_CRAFT = 172,
+    InstructionId_ACTION_NANO = 173,
+    InstructionId_ACTION_REMBOT = 174,
+
+    InstructionId_INVDIR_W = 175,
+    InstructionId_INVDIR_A = 176,
+    InstructionId_INVDIR_S = 177,
+    InstructionId_INVDIR_D = 178,
+
+    InstructionId_HANDMODE_ON = 179,
+    InstructionId_HANDMODE_OFF = 180,
+
+    InstructionId_DEBUG_BREAK = 181,
+    InstructionId_DEBUG_SET = 182,
 };
 #pragma endregion InstructionIdsEnum
 
@@ -113,21 +178,55 @@ typedef struct tagSimpleInstruction {
     Instruction_CC_ROCK, Instruction_CC_DEAD, Instruction_CCC_REDROCK,
     Instruction_CCC_BLACKROCK, Instruction_CC_ACID, Instruction_CCC_QUADRO,
     Instruction_CCC_ROAD, Instruction_CCC_REDBLOCK, Instruction_CCC_YELLOWBLOCK,
-    Instruction_CCC_BOX, Instruction_CCC_OPOR, Instruction_CCC_GREENBLOCK;
+    Instruction_CCC_BOX, Instruction_CCC_OPOR, Instruction_CCC_GREENBLOCK,
+    Instruction_CELL_WW, Instruction_CELL_AA, Instruction_CELL_SS,
+    Instruction_CELL_DD, Instruction_CELL_F, Instruction_CELL_FF,
+    Instruction_RETURNF, Instruction_STD_DIGG, Instruction_STD_BUILD,
+    Instruction_STD_HEAL, Instruction_PROG_FLIP, Instruction_STD_MINE,
+    Instruction_CC_GUN, Instruction_FILL_GUN, Instruction_CB_HP,
+    Instruction_CB_HP50, Instruction_CELL_RIGHT_HAND,
+    Instruction_CELL_LEFT_HAND, Instruction_MODE_AUTODIGG_ON,
+    Instruction_MODE_AUTODIGG_OFF, Instruction_MODE_AGR_ON,
+    Instruction_MODE_AGR_OFF, Instruction_ACTION_B1, Instruction_ACTION_B3,
+    Instruction_ACTION_B2, Instruction_ACTION_WB, Instruction_ACTION_GEOPACK,
+    Instruction_ACTION_ZM, Instruction_ACTION_C190, Instruction_ACTION_POLY,
+    Instruction_ACTION_UP, Instruction_ACTION_CRAFT, Instruction_ACTION_NANO,
+    Instruction_ACTION_REMBOT, Instruction_INVDIR_W, Instruction_INVDIR_A,
+    Instruction_INVDIR_S, Instruction_INVDIR_D, Instruction_HANDMODE_ON,
+    Instruction_HANDMODE_OFF;
 
-/*! \struct tagLiteralInstruction
- * \brief Инструкция, содержащая в себе литерал идентификатора метки.
+/*! \struct tagLabelInstruction
+ * \brief Структура для инструкций, содержащих в себе литерал идентификатора
+ * метки.
  */
-typedef struct tagLiteralInstruction {
+typedef struct tagLabelInstruction {
     LabelIdentificatorLiteral label;
-} Instruction_GOTO, Instruction_GOSUB, Instruction_GOSUB1, Instruction_LABEL;
+} Instruction_GOTO, Instruction_GOSUB, Instruction_GOSUB1, Instruction_LABEL,
+    Instruction_GOSUBF, Instruction_IF_NOT_GOTO, Instruction_IF_GOTO,
+    Instruction_ON_RESP;
+
+/*! \struct tagVarCmpInstruction
+ * \brief Структура для инструкций, служащих для сравнения переменной со
+ * значением.
+ */
+typedef struct tagVarCmpInstruction {
+    VariableIdentificatorLiteral identificator;
+    VariableValueLiteral value;
+} Instruction_VAR_MORE, Instruction_VAR_LESS, Instruction_VAR_EQUAL;
+
+/*! \struct tagStringInstruction
+ * \brief Структура для инструкций, включающих в себя строковой литерал.
+ */
+typedef struct tagStringInstruction {
+    StringLiteral string;
+} Instruction_DEBUG_BREAK, Instruction_DEBUG_SET;
 #pragma endregion InstructionTypeDeclarations
 
 /*!
  * \brief Объединение типов инструкций.
  *
- * По факту является объедением двух структур: #tagSimpleInstruction и
- * #tagLiteralInstruction.
+ * По факту является объедением четырех структур: #tagSimpleInstruction,
+ * #tagLabelInstruction, #tagVarCmpInstruction и #tagStringInstruction.
  *
  * \warning Не содержит в себе типы для инструкций <code>LAST, RESTART</code>,
  * т. к. их типы не известны.
@@ -202,6 +301,70 @@ typedef union tagInstructionTypesUnion {
     Instruction_CCC_BOX CCC_BOX;
     Instruction_CCC_OPOR CCC_OPOR;
     Instruction_CCC_GREENBLOCK CCC_GREENBLOCK;
+
+    Instruction_VAR_MORE VAR_MORE;
+    Instruction_VAR_LESS VAR_LESS;
+    Instruction_VAR_EQUAL VAR_EQUAL;
+
+    Instruction_CELL_WW CELL_WW;
+    Instruction_CELL_AA CELL_AA;
+    Instruction_CELL_SS CELL_SS;
+    Instruction_CELL_DD CELL_DD;
+    Instruction_CELL_F CELL_F;
+    Instruction_CELL_FF CELL_FF;
+
+    Instruction_GOSUBF GOSUBF;
+    Instruction_RETURNF RETURNF;
+
+    Instruction_IF_NOT_GOTO IF_NOT_GOTO;
+    Instruction_IF_GOTO IF_GOTO;
+
+    Instruction_STD_DIGG STD_DIGG;
+    Instruction_STD_BUILD STD_BUILD;
+    Instruction_STD_HEAL STD_HEAL;
+    Instruction_PROG_FLIP PROG_FLIP;
+    Instruction_STD_MINE STD_MINE;
+
+    Instruction_CC_GUN CC_GUN;
+    Instruction_FILL_GUN FILL_GUN;
+
+    Instruction_CB_HP CB_HP;
+    Instruction_CB_HP50 CB_HP50;
+
+    Instruction_CELL_RIGHT_HAND CELL_RIGHT_HAND;
+    Instruction_CELL_LEFT_HAND LEFT_HAND;
+
+    Instruction_MODE_AUTODIGG_ON MODE_AUTODIGG_ON;
+    Instruction_MODE_AUTODIGG_OFF MODE_AUTODIGG_OFF;
+    Instruction_MODE_AGR_ON MODE_AGR_ON;
+    Instruction_MODE_AGR_OFF MODE_AGR_OFF;
+
+    Instruction_ACTION_B1 ACTION_B1;
+    Instruction_ACTION_B3 ACTION_B3;
+    Instruction_ACTION_B2 ACTION_B2;
+    Instruction_ACTION_WB ACTION_WB;
+
+    Instruction_ON_RESP ON_RESP;
+
+    Instruction_ACTION_GEOPACK ACTION_GEOPACK;
+    Instruction_ACTION_ZM ACTION_ZM;
+    Instruction_ACTION_C190 ACTION_C190;
+    Instruction_ACTION_POLY ACTION_POLY;
+    Instruction_ACTION_UP ACTION_UP;
+    Instruction_ACTION_CRAFT ACTION_CRAFT;
+    Instruction_ACTION_NANO ACTION_NANO;
+    Instruction_ACTION_REMBOT ACTION_REMBOT;
+
+    Instruction_INVDIR_W INVDIR_W;
+    Instruction_INVDIR_A INVDIR_A;
+    Instruction_INVDIR_S INVDIR_S;
+    Instruction_INVDIR_D INVDIR_D;
+
+    Instruction_HANDMODE_ON HANDMODE_ON;
+    Instruction_HANDMODE_OFF HANDMODE_OFF;
+
+    Instruction_DEBUG_BREAK DEBUG_BREAK;
+    Instruction_DEBUG_SET DEBUG_SET;
 } InstructionTypesUnion;
 
 /*!
