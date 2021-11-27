@@ -9,8 +9,10 @@
 /*!
  * \brief Id инструкций из клиента.
  *
- * \note Здесь определены #InstructionId_LAST, #InstructionId_RESTART, но типы
- * для них не приводятся, т. к. не известны.
+ * \note Здесь не определены id для инструкций <code>LAST, RESTART</code>.
+ *
+ * \warning Id со значениями <code>34, 41-42, 55-56, 61-73, 75, 78-118</code>
+ * отсутствуют.
  */
 enum InstructionIds {
     InstructionId_EMPTY = 0,
@@ -31,8 +33,6 @@ enum InstructionIds {
     InstructionId_LOOK_S = 11,
     InstructionId_LOOK_D = 12,
 
-    InstructionId_LAST = 13,
-
     InstructionId_LOOK_F = 14,
 
     InstructionId_ROTATE_CCW = 15,
@@ -51,6 +51,40 @@ enum InstructionIds {
     InstructionId_GOSUB1 = 26,
     InstructionId_RETURN = 27,
     InstructionId_RETURN1 = 28,
+
+    InstructionId_CELL_WA = 29,
+    InstructionId_CELL_SD = 30,
+    InstructionId_CELL_W = 31,
+    InstructionId_CELL_DW = 32,
+    InstructionId_CELL_A = 33,
+    InstructionId_CELL_D = 35,
+    InstructionId_CELL_AS = 36,
+    InstructionId_CELL_S = 37,
+
+    InstructionId_BOOLMODE_OR = 38,
+    InstructionId_BOOLMODE_AND = 39,
+
+    InstructionId_LABEL = 40,
+
+    InstructionId_CC_NOTEMPTY = 43,
+    InstructionId_CC_EMPTY = 44,
+    InstructionId_CC_GRAVITY = 45,
+    InstructionId_CC_CRYSTALL = 46,
+    InstructionId_CC_ALIVE = 47,
+    InstructionId_CC_BOLDER = 48,
+    InstructionId_CC_SAND = 49,
+    InstructionId_CC_ROCK = 50,
+    InstructionId_CC_DEAD = 51,
+    InstructionId_CCC_REDROCK = 52,
+    InstructionId_CCC_BLACKROCK = 53,
+    InstructionId_CC_ACID = 54,
+    InstructionId_CCC_QUADRO = 57,
+    InstructionId_CCC_ROAD = 58,
+    InstructionId_CCC_REDBLOCK = 59,
+    InstructionId_CCC_YELLOWBLOCK = 60,
+    InstructionId_CCC_BOX = 74,
+    InstructionId_CCC_OPOR = 76,
+    InstructionId_CCC_GREENBLOCK = 77,
 };
 #pragma endregion InstructionIdsEnum
 
@@ -70,14 +104,23 @@ typedef struct tagSimpleInstruction {
     Instruction_ACTION_BUILD, Instruction_ACTION_GEO, Instruction_ACTION_ROAD,
     Instruction_ACTION_HEAL, Instruction_ACTION_QUADRO,
     Instruction_ACTION_RANDOM, Instruction_ACTION_BIBIKA, Instruction_RETURN,
-    Instruction_RETURN1;
+    Instruction_RETURN1, Instruction_CELL_WA, Instruction_CELL_SD,
+    Instruction_CELL_W, Instruction_CELL_DW, Instruction_CELL_A,
+    Instruction_CELL_D, Instruction_CELL_AS, Instruction_CELL_S,
+    Instruction_BOOLMODE_OR, Instruction_BOOLMODE_AND, Instruction_CC_NOTEMPTY,
+    Instruction_CC_EMPTY, Instruction_CC_GRAVITY, Instruction_CC_CRYSTALL,
+    Instruction_CC_ALIVE, Instruction_CC_BOLDER, Instruction_CC_SAND,
+    Instruction_CC_ROCK, Instruction_CC_DEAD, Instruction_CCC_REDROCK,
+    Instruction_CCC_BLACKROCK, Instruction_CC_ACID, Instruction_CCC_QUADRO,
+    Instruction_CCC_ROAD, Instruction_CCC_REDBLOCK, Instruction_CCC_YELLOWBLOCK,
+    Instruction_CCC_BOX, Instruction_CCC_OPOR, Instruction_CCC_GREENBLOCK;
 
 /*! \struct tagLiteralInstruction
  * \brief Инструкция, содержащая в себе литерал идентификатора метки.
  */
 typedef struct tagLiteralInstruction {
     LabelIdentificatorLiteral label;
-} Instruction_GOTO, Instruction_GOSUB, Instruction_GOSUB1;
+} Instruction_GOTO, Instruction_GOSUB, Instruction_GOSUB1, Instruction_LABEL;
 #pragma endregion InstructionTypeDeclarations
 
 /*!
@@ -86,8 +129,8 @@ typedef struct tagLiteralInstruction {
  * По факту является объедением двух структур: #tagSimpleInstruction и
  * #tagLiteralInstruction.
  *
- * \warning Не содержит в себе типы для инструкций \a LAST и \a RESTART, т.
- * к. их типы не известны.
+ * \warning Не содержит в себе типы для инструкций <code>LAST, RESTART</code>,
+ * т. к. их типы не известны.
  */
 typedef union tagInstructionTypesUnion {
     Instruction_EMPTY EMPTY;
@@ -125,6 +168,40 @@ typedef union tagInstructionTypesUnion {
     Instruction_GOSUB1 GOSUB1;
     Instruction_RETURN RETURN;
     Instruction_RETURN1 RETURN1;
+
+    Instruction_CELL_WA CELL_WA;
+    Instruction_CELL_SD CELL_SD;
+    Instruction_CELL_W CELL_W;
+    Instruction_CELL_DW CELL_DW;
+    Instruction_CELL_A CELL_A;
+    Instruction_CELL_D CELL_D;
+    Instruction_CELL_AS CELL_AS;
+    Instruction_CELL_S CELL_S;
+
+    Instruction_BOOLMODE_OR BOOLMODE_OR;
+    Instruction_BOOLMODE_AND BOOLMODE_AND;
+
+    Instruction_LABEL LABEL;
+
+    Instruction_CC_NOTEMPTY CC_NOTEMPTY;
+    Instruction_CC_EMPTY CC_EMPTY;
+    Instruction_CC_GRAVITY CC_GRAVITY;
+    Instruction_CC_CRYSTALL CC_CRYSTALL;
+    Instruction_CC_ALIVE CC_ALIVE;
+    Instruction_CC_BOLDER CC_BOLDER;
+    Instruction_CC_SAND CC_SAND;
+    Instruction_CC_ROCK CC_ROCK;
+    Instruction_CC_DEAD CC_DEAD;
+    Instruction_CCC_REDROCK CCC_REDROCK;
+    Instruction_CCC_BLACKROCK CCC_BLACKROCK;
+    Instruction_CC_ACID CC_ACID;
+    Instruction_CCC_QUADRO CCC_QUADRO;
+    Instruction_CCC_ROAD CCC_ROAD;
+    Instruction_CCC_REDBLOCK CCC_REDBLOCK;
+    Instruction_CCC_YELLOWBLOCK CCC_YELLOWBLOCK;
+    Instruction_CCC_BOX CCC_BOX;
+    Instruction_CCC_OPOR CCC_OPOR;
+    Instruction_CCC_GREENBLOCK CCC_GREENBLOCK;
 } InstructionTypesUnion;
 
 /*!
