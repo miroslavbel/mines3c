@@ -12,7 +12,7 @@
  *
  * \warning Значение может быть любым.
  */
-typedef uint8_t _LiteralStub[4];
+typedef uint8_t _LiteralStub[3];
 
 // ## Типы по содержанию
 
@@ -20,7 +20,9 @@ typedef uint8_t _LiteralStub[4];
  * \brief Литерал, состоящий только из цифр.
  *
  * Должен соответствовать регулярному выражению <code>\d{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _LiteralStub _DigitsLiteral;
 
@@ -28,7 +30,9 @@ typedef _LiteralStub _DigitsLiteral;
  * \brief Литерал, состоящий только из цифр и букв.
  *
  * Должен соответствовать регулярному выражению <code>[\d\w]{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _LiteralStub _DigitsAndLettersLiteral;
 
@@ -38,7 +42,9 @@ typedef _LiteralStub _DigitsAndLettersLiteral;
  * \brief Литерал значений переменной.
  *
  * Должен соответствовать регулярному выражению <code>\d{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _DigitsLiteral VariableValueLiteral;
 
@@ -46,7 +52,9 @@ typedef _DigitsLiteral VariableValueLiteral;
  * \brief Литерал идентификатора переменной.
  *
  * Должен соответствовать регулярному выражению <code>[\d\w]{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _DigitsAndLettersLiteral VariableIdentificatorLiteral;
 
@@ -54,7 +62,9 @@ typedef _DigitsAndLettersLiteral VariableIdentificatorLiteral;
  * \brief Литерал идентификатора метки.
  *
  * Должен соответствовать регулярному выражению <code>[\d\w]{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _DigitsAndLettersLiteral LabelIdentificatorLiteral;
 
@@ -62,7 +72,9 @@ typedef _DigitsAndLettersLiteral LabelIdentificatorLiteral;
  * \brief Литерал строки.
  *
  * Должен соответствовать регулярному выражению <code>[\d\w]{1,3}</code>. Должен
- * быть валидной нуль-терминированной строкой в ascii кодировке.
+ * быть валидной строкой в ascii кодировке.
+ *
+ * \warning Не является нуль-терминированной строкой.
  */
 typedef _DigitsAndLettersLiteral StringLiteral;
 
