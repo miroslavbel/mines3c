@@ -3,7 +3,7 @@
 
 #include <inttypes.h> // uint8_t
 
-#include <formats/internal/literals.h>
+#include <mines3c/formats/internal/literals.h>
 
 #pragma region InstructionIdsEnum
 /*!

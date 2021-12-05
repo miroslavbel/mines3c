@@ -1,7 +1,7 @@
 #ifndef MINES3C_FORMATS_INTERNAL_PROGRAM__H
 #define MINES3C_FORMATS_INTERNAL_PROGRAM__H
 
-#include <formats/internal/instructions.h>
+#include <mines3c/formats/internal/instructions.h>
 
 /*!
  * \brief Количество страниц в программаторе.
